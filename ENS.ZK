@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ZK Name Service UI</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+</head>
+<body>
+  <h1>ZK Name Service UI</h1>
+  
+  <div>
+    <label for="inputName">Name:</label>
+    <input type="text" id="inputName" placeholder="Enter name">
+  </div>
+  <div>
+    <button onclick="register()">Register</button>
+    <button onclick="setAddress()">Set Address</button>
+    <button onclick="setPrimaryAddress()">Set Primary Address</button>
+    <button onclick="setDataAddress()">Set Data Address</button>
+  </div>
+  
+  <script>
+    // 初始化Web3
+    const web3 = new Web3(Web3.givenProvider);
+
+    // 合約地址
+    const contractAddress = 'YOUR_CONTRACT_ADDRESS';
+    // 合約ABI
+    const contractABI = [
+      // 定義合約的ABI
+    ];
+    
+    // 初始化合約實例
+    const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+    async function register() {
+      // 獲取用戶輸入的名稱
+      const name = document.getElementById('inputName').value;
+      
+      // 調用合約的Register函數
+      const result = await contract.methods.Register(name).send({ value: web3.utils.toWei('0.01', 'ether') });
+      
+      console.log(result);
+      // 在控制台打印結果
+      
+      // TODO: 更新UI顯示註冊結果等
+    }
+
+    async function setAddress() {
+      // 獲取用戶輸入的名稱和新地址
+      const name = document.getElementById('inputName').value;
+      const newAddress = 'NEW_ADDRESS';
+      
+      // 調用合約的setAddress函數
+      const result = await contract.methods.setAddress(name, newAddress).send();
+      
+      console.log(result);
+      // 在控制台打印結果
+      
+      // TODO: 更新UI顯示操作結果等
+    }
+
+    async function setPrimaryAddress() {
+      // 獲取用戶輸入的名稱
+      const name = document.getElementById('inputName').value;
+      
+      // 調用合約的setPrimaryAddress函數
+      const result = await contract.methods.setPrimaryAddress(name).send();
+      
+      console.log(result);
+      // 在控制台打印結果
+      
+      // TODO: 更新UI顯示操作結果等
+    }
+
+    async function setDataAddress() {
+      // 獲取用戶輸入的名稱、區域和新數據地址
+      const name = document.getElementById('inputName').value;
+      const area = 'AREA';
+      const newDataAddress = 'NEW_DATA_ADDRESS';
+      
+      // 調用合約的setDataAddress函數
+      const result = await contract.methods.setDataAddress(name, area, newDataAddress).send();
+      
+      console.log(result);
+     
